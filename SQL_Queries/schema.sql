@@ -1,3 +1,10 @@
+DROP TABLE departments CASCADE;
+DROP TABLE employees CASCADE;
+DROP TABLE dept_manager CASCADE;
+DROP TABLE salaries CASCADE;
+DROP TABLE titles CASCADE;
+DROP TABLE dept_emp CASCADE;
+
 -- Create 'departments' table for PH-EmployeeDB
 CREATE TABLE departments (
      dept_no VARCHAR(4) NOT NULL,
@@ -19,7 +26,7 @@ CREATE TABLE employees (
 
 -- Create 'dept_manager' table for PH-EmployeeDB
 CREATE TABLE dept_manager (
-dept_no VARCHAR(4) NOT NULL,
+    dept_no VARCHAR(4) NOT NULL,
     emp_no INT NOT NULL,
     from_date DATE NOT NULL,
     to_date DATE NOT NULL,
@@ -45,7 +52,7 @@ CREATE TABLE titles (
   from_date DATE NOT NULL,
   to_date DATE NOT NULL,
   FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
-  PRIMARY KEY (emp_no)
+  PRIMARY KEY (emp_no, title, from_date)
 );
 
 -- Create 'dept_emp' table for PH-EmployeeDB
@@ -55,6 +62,5 @@ CREATE TABLE dept_emp (
   from_date DATE NOT NULL,
   to_date DATE NOT NULL,
   FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
-  FOREIGN KEY (dept_no) REFERENCES departments (dept_no),
-  PRIMARY KEY (emp_no)
+  PRIMARY KEY (emp_no, dept_no, from_date)
 );

@@ -8,32 +8,10 @@ This project applies SQL data modeling, engineering, & analysis methods. Our cli
 	<li> How many and what kind of positions will HP need to fill?
 	</ol>
 
-To answer these questions, the client wishes to analyze employee data from six csv files, which have been generated with Excel/VBA. Our role is to help migrate data to a SQL database and to use SQL queries to analyze the data. The client has requested the following deliverables:  
-	<ol>
-	<li> Load source (.csv) data files into SQL tables ("entities");
-	<li> Map the relationships between data tables using Quick Database Diagrams ("Quick DB")
-	<li> Create a conceptual entity relationship diagram (ERD) for each table that includes the following information:
-    	<ol>
-		<li> Primary & Identifying (e.g., Foreign) Keys for each table;
-		<li> Datatypes for each data column;
-		</ol>
-	<li> Use XXX to create logical ERD:
-		<ol>
-		<li> XXXXXXXX;
-		<li> XXXXXXXX; and
-		<li> XXXXXXXX
-		</ol>
-    <li> Use XXX to create physical ERD:
-		<ol>
-		<li> XXXXXXXX;
-		<li> XXXXXXXX; and
-		<li> XXXXXXXX
-		</ol>
-	</ol>
-
 ## Resources (Source Data & Analysis Software)
 To accomplish these tasks, we used the following resources:
 	<ol>
+	<li> Software = pgAdmin (v 4); PostgreSQL (v 11.X); Quick DBD (https://www.quickdatabasediagrams.com/)
 	<li> CSV Source Data Files (Note: pk = primary key, fk = foreign key):
     	<ol>
 		<li> 'departments.csv' (Look-up Table): 2 cols; 10 rows:
@@ -79,19 +57,33 @@ To accomplish these tasks, we used the following resources:
                 <li> ColD = 'to_date' (date);
                 </ol>
 		</ol>
-	<li> Software = pgAdmin (v 4); PostgreSQL (v 11.X); Quick DBD (https://www.quickdatabasediagrams.com/)
 	</ol>
 
-## Data Import (Migration to SQL)
-We used XXXXXXXX to import the source data (CSV) files and to...:
 
-## Methods for XXXXXXXX
-XXXXXXXX
+## Methods for creating the SQL database (db), db schema, and db queries
+To answer these questions, the client wishes to analyze employee data from six csv files, which have been generated with Excel/VBA. Our role is to help migrate data to a SQL database and to use SQL queries to analyze the data. The client has requested the following deliverables:  
+	<ol>
+	<li> A relational database schema ('schema.sql') file;
+	<li> A PostgreSQL employee database that contains data from the six .csv source data files;
+	<li> A SQL queries ('queries. sql') file, together with the following query results:
+    	<ol>
+		<li> A file that contains a list of employees who are nearing retirement;
+		<li> A file that contains a count (number) of employees for each department;
+		<li> An Employee Information file that contains list of employees containing their unique employee number, their last name, first name, gender, and salary
+		<li> A Management file that contains a list of managers for each department, including the department number, name, and the manager's employee number, last name, first name, and the starting and ending employment dates
+		<li> A Department Retirees file that contains an updated current_emp list that includes the employee's departments
+		</ol>
+	</ol>
 
 
 ## Results
-XXXXXXXX
+Quick DBD was used to design the entity relationship database (ERD), and Postgres/pgAdmin was used to create the physical ERD, import and export data, and run queries. The code to generate the database schema was saved to a file (file name = 'schema.sql').
 
-## Summary & Conclusions
-
-XXXXXXXX
+SQL queries (in 'queries.sql') to generate new data (query results) were saved to a file (file name = 'queries.sql'). These queries created the following new tables, which we exported to file:
+	<ol>
+	<li> A file that contains a list of employees who are nearing retirement ('retirement_info.csv');
+	<li> A file that contains a count (number) of employees for each department ('count_emp_per_dept.csv');
+	<li> An Employee Information file ('emp_info.csv');
+	<li> A Management file ('manager_info'); and
+	<li> A Department Retirees file that contains an updated current_emp list ('dept_info').
+	</ol>

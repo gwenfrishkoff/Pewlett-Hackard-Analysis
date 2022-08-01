@@ -1,10 +1,17 @@
 # Building a Relational Database for Employee Data Storage & Management (Postgres SQL)
 
 ## Project Overview
-Our client is Pewlett Hackard, a company with several thousand employees. To increase efficient handling of employee data, PH wishes to migrate to build an employee database with SQL. This project applies SQL data modeling, engineering, & analysis methods. The client has requested the following deliverables:  
+This project applies SQL data modeling, engineering, & analysis methods. Our client is Pewlett Hackard, a company with several thousand employees. The company anticipates that a substantial number of employees will be retiring in the next few years and wants to address the following questions:	
+	<ol>
+	<li> Who will be retiring in the next few years?
+	<li> Who among them will be eligible for various HP retirement packages?
+	<li> How many and what kind of positions will HP need to fill?
+	</ol>
+
+To answer these questions, the client wishes to analyze employee data from six csv files, which have been generated with Excel/VBA. Our role is to help migrate data to a SQL database and to use SQL queries to analyze the data. The client has requested the following deliverables:  
 	<ol>
 	<li> Load source (.csv) data files into SQL tables ("entities");
-	<li> Model the data using Quick Database Diagrams ("Quick DB")
+	<li> Map the relationships between data tables using Quick Database Diagrams ("Quick DB")
 	<li> Create a conceptual entity relationship diagram (ERD) for each table that includes the following information:
     	<ol>
 		<li> Primary & Identifying (e.g., Foreign) Keys for each table;

@@ -1,11 +1,10 @@
 # Building a Relational Database for Employee Data Storage & Management (Postgres SQL)
 
 ## Project Overview
-This project applies SQL data modeling, engineering, & analysis methods. Our client is Pewlett Hackard, a company with several thousand employees. The company wishes to use SQL resources and methods to address the following questions:	
+This project applies SQL data modeling, engineering, & analysis methods. Our client is Pewlett Hackard, a company with several thousand employees. The company wishes to address two main questions:	
 	<ol>
-	<li> Who will be retiring in the next few years?
-	<li> Who among them will be eligible for various HP retirement packages?
-	<li> How many and what kind of positions will need to filled?
+	<li> *Question 1*: How many roles will need to be filled as the "silver tsunami" begins to make an impact?	
+	<li> *Question 2*: Are there enough qualified, retirement-ready employees in the departments to mentor the next generation of Pewlett Hackard employees?
 	</ol>
 
 ## Resources (Source Data & Analysis Software)
@@ -60,30 +59,45 @@ To address these questions, we used the following data and resources:
 	</ol>
 
 
-## Methods for creating the SQL database (db), db schema, and db queries
-To answer these questions, the client wishes to analyze employee data from six csv files, which have been generated with Excel/VBA. Our role is to help migrate data to a SQL database and to use SQL queries to analyze the data. The client has requested the following deliverables:  
+## Methods
+Quick DBD was used to design the entity relationship database (ERD), and Postgres/pgAdmin was used to create the physical ERD, to import and export data, and to generate the following files:
 	<ol>
-	<li> A relational database schema ('schema.sql') file;
-	<li> A PostgreSQL employee database that contains data from the six .csv source data files;
-	<li> A SQL queries ('queries. sql') file, together with the following query results:
+	<li> A relational database schema ('schema.sql' file);
+	<li> A SQL queries ('Employee_Database_Challenge. sql') file, together with the following query results (tabular data, exported to CSV files):
     	<ol>
-		<li> A file that contains a list of employees who are nearing retirement;
-		<li> A file that contains a count (number) of employees for each department;
-		<li> An Employee Information file that contains list of employees containing their unique employee number, their last name, first name, gender, and salary
-		<li> A Management file that contains a list of managers for each department, including the department number, name, and the manager's employee number, last name, first name, and the starting and ending employment dates
-		<li> A Department Retirees file that contains an updated current_emp list that includes the employee's departments
+		<li> A Retirement Titles table (Deliverable #1a: 'retirement_titles.csv'), which meets the following requirements: 
+		    <ol> It contains a list of employees who were born between Jan 1, 1952 & Dec 31, 1955;
+		    <li> It includes emp_no, first_name, & last_name from the 'Employees' table;
+		    <li> Data from the 'Employees' table are joined with title, from_date, & to_date data from the 'Titles' table; and
+		    <li> The data are ordered by emp_no.
+			</ol> 
+		<li> A Unique Titles table (Deliverable #1b: 'unique_titles.csv'), which meets the following requirements: 
+		    <ol> It contains a list of current employees together with their most recent titles (DISTINCT ON statement used to filter out duplicate entries);
+		    <li> It includes emp_no, first_name, & last_name from the Retirement Titles table (Deliverable #1a);
+		    <li> It excludes employees who have already left (filtered on to_date = '9999-01-01'); and
+		    <li> It is ordered by emp_no (Ascending) & by to_date (Descending).
+			</ol> 
+		<li> A Retiring Titles table (Deliverable #1c: 'retiring_titles.csv'), which meets the following requirements: 
+		    <ol> It contains a count of employees who are about to retire;
+		    <li> Data are grouped by title (referencing the Unique Titles table, Deliverable #1b); and
+		    <li> It is ordered by count (Descending).
+			</ol> 
+		<li> A Mentorship Eligibility table (Deliverable #2: 'mentorship_eligibility.csv'), which meets the following requirements: 
+		    <ol> It contains a list of employees who are eligible for the PH Mentorship Program;
+		    <li> It includes emp_no, first_name, last_name, and birth_date from the Employees table, from_date and to_date columns from the Department Employee table, and current title (from the Titles table);
+		    <li> It is generated using a DISTINCT ON statement to exclude duplicate entries;
+		    <li> Data are filtered on to_date to retrieve only current employees and on birth_date to get all employees who were born in 1965; and
+		    <li> It is ordered by employee number.
+			</ol> 
 		</ol>
 	</ol>
 
 
 ## Results
-Quick DBD was used to design the entity relationship database (ERD), and Postgres/pgAdmin was used to create the physical ERD, import and export data, and run queries. The code to generate the database schema was saved to a file (file name = 'schema.sql').
+The code to generate the database schema was saved to 'schema.sql', and the SQL queries (in 'queries.sql') were saved to 'Employee_Database_Challenge.sql' (in ./Queries). The four tables were exported to .csv files ( in ./Data)/
 
-SQL queries (in 'queries.sql') to generate new data (query results) were saved to a file (file name = 'queries.sql'). These queries created the following new tables, which we exported to file:
+Results suggest the following conclusions:
 	<ol>
-	<li> A file that contains a list of employees who are nearing retirement ('retirement_info.csv');
-	<li> A file that contains a count (number) of employees for each department ('count_emp_per_dept.csv');
-	<li> An Employee Information file ('emp_info.csv');
-	<li> A Management file ('manager_info'); and
-	<li> A Department Retirees file that contains an updated current_emp list ('dept_info').
+	<li> *Conclusion 1*: Approximately 72,500 positions will need to be filled in the next several years, including ~25,000 senior engineers, ~25,000 senior staff ~ 10,000 engineers, and ~7,500 staff;	
+	<li> *Conclusion 2*: There is a sufficient number of senior staff to mentor the next generation of employees (~434 current senior staff who are eligible for the mentorship program), but the number of senior engineers (~300 eligible for the mentorship program) could place a strain on current resources (assuming they are more costly to train).
 	</ol>

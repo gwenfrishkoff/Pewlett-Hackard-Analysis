@@ -1,5 +1,6 @@
 ---------------------------------------------------------------------------------------
 --------------- Deliverable #1: Number of Retiring Employees by Title -----------------
+---------------------------------------------------------------------------------------
 
 -- Step #1: CREATE A RETIREMENT TITLES TABLE
 
@@ -14,7 +15,7 @@ SELECT e.emp_no,
     t.title,
     t.from_date,
     t.to_date
--- INTO retirement_titles
+INTO retirement_titles
 FROM employees as e
 INNER JOIN titles AS t
 ON (e.emp_no = t.emp_no)
@@ -52,19 +53,42 @@ SELECT * FROM unique_titles;
 -- Retrieve the number of titles from the Unique Titles table (from Step #2)
 -- Group by title, Order by title (Descending),
 -- Save into 'retiring_titles' table & export to CSV
-SELECT title, COUNT(unique_titles)
--- INTO retiring_titles
-FROM unique titles
+SELECT title, COUNT(unique_titles) as "count"
+INTO retiring_titles
+FROM unique_titles
 GROUP BY title
-ORDER BY title DESC;
-
-----------------------------------------------------------------------------------------
---------------------------------- END Deliverable #1 -----------------------------------
-
+ORDER BY count DESC;
+-- Check the table
+SELECT * FROM retiring_titles;
 
 ----------------------------------------------------------------------------------------
 ------------------ Deliverable #2: Employees Eligible for Mentorship Program -----------
-
-
-----------------------------------------------------------------------------------------
---------------------------------- END Deliverable #2 -----------------------------------
+---------------------------------------------------------------------------------------
+-- Retrieve the emp_no, first_name, last_name, and birth_date columns from the Employees table.
+-- Retrieve the from_date and to_date columns from the Department Employee table.
+-- Retrieve the title column from the Titles table.
+-- Use a DISTINCT ON statement to retrieve 1st occurrence of emp_no for each set of rows defined by the ON () clause.
+-- Create a new table using the INTO clause.
+-- Join the Employees and the Department Employee tables on the primary key.
+-- Join the Employees and the Titles tables on the primary key.
+-- Filter on to_date column to get all current employees, 
+-- Then filter on birth_date to get all employees w/DOB betw January 1, 1965 and December 31, 1965.
+-- Order the table by the employee number.
+SELECT DISTINCT ON (e.emp_no) t.title,
+    e.emp_no,    
+    e.first_name,
+    e.last_name,
+    e.birth_date,
+    d.from_date,
+    d.to_date
+INTO mentorship_eligibility
+FROM employees AS e
+    INNER JOIN dept_emp AS d
+        ON (e.emp_no = d.emp_no)
+    INNER JOIN titles AS t
+        ON (e.emp_no = t.emp_no)
+WHERE (d.to_date = '9999-01-01') 
+    AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER BY e.emp_no;
+-- Check the table
+SELECT * FROM mentorship_eligibility;

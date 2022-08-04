@@ -64,4 +64,31 @@ SELECT * FROM retiring_titles;
 ----------------------------------------------------------------------------------------
 ------------------ Deliverable #2: Employees Eligible for Mentorship Program -----------
 ---------------------------------------------------------------------------------------
-
+-- Retrieve the emp_no, first_name, last_name, and birth_date columns from the Employees table.
+-- Retrieve the from_date and to_date columns from the Department Employee table.
+-- Retrieve the title column from the Titles table.
+-- Use a DISTINCT ON statement to retrieve 1st occurrence of emp_no for each set of rows defined by the ON () clause.
+-- Create a new table using the INTO clause.
+-- Join the Employees and the Department Employee tables on the primary key.
+-- Join the Employees and the Titles tables on the primary key.
+-- Filter on to_date column to get all current employees, 
+-- Then filter on birth_date to get all employees w/DOB betw January 1, 1965 and December 31, 1965.
+-- Order the table by the employee number.
+SELECT DISTINCT ON (e.emp_no) t.title,
+    e.emp_no,    
+    e.first_name,
+    e.last_name,
+    e.birth_date,
+    d.from_date,
+    d.to_date
+INTO mentorship_eligibility
+FROM employees AS e
+    INNER JOIN dept_emp AS d
+        ON (e.emp_no = d.emp_no)
+    INNER JOIN titles AS t
+        ON (e.emp_no = t.emp_no)
+WHERE (d.to_date = '9999-01-01') 
+    AND (e.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER BY e.emp_no;
+-- Check the table
+SELECT * FROM mentorship_eligibility;

@@ -1,15 +1,15 @@
 # Building a Relational Database for Employee Data Storage & Management (Postgres SQL)
 
 ## Project Overview
-This project applies SQL data modeling, engineering, & analysis methods. Our client is Pewlett Hackard, a company with several thousand employees. The company anticipates that a substantial number of employees will be retiring in the next few years and wants to address the following questions:	
+This project applies SQL data modeling, engineering, & analysis methods. Our client is Pewlett Hackard, a company with several thousand employees. The company wishes to use SQL resources and methods to address the following questions:	
 	<ol>
 	<li> Who will be retiring in the next few years?
 	<li> Who among them will be eligible for various HP retirement packages?
-	<li> How many and what kind of positions will HP need to fill?
+	<li> How many and what kind of positions will need to filled?
 	</ol>
 
 ## Resources (Source Data & Analysis Software)
-To accomplish these tasks, we used the following resources:
+To address these questions, we used the following data and resources:
 	<ol>
 	<li> Software = pgAdmin (v 4); PostgreSQL (v 11.X); Quick DBD (https://www.quickdatabasediagrams.com/)
 	<li> CSV Source Data Files (Note: pk = primary key, fk = foreign key):
